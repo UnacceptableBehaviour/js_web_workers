@@ -41,7 +41,17 @@ Worklet - Worklets are a very lightweight, highly specific, worker.
 
 
 
+## SERVICE WORKERS
+https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
 
+Gothcas
+https://gist.github.com/Rich-Harris/fd6c3c73e6e707e312d7c5d7d0f3b2f9
+
+More important fundamental gotchas - only in https or local NOT file or http
+https://stackoverflow.com/questions/39136625/service-worker-registration-failed
+serve w/ node
+http-server -p 8000 --cors
+http://127.0.0.1:8000
 
 
 

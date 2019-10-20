@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Service Workers</title>
+    <meta name="viewport" content="width=device-width">
+    <!--<link rel="stylesheet" href="#">-->
+</head>
+<body>
+    <header>
+        <h1>Service Workers</h1>
+    </header>
+    <main>
+        <button id='b_fetch'>Fetch</button>
+        <button id='b_f2'>F2</button>
+        <pre id="output"></pre>
+    </main>    
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js')
+                .then(registration => {
+                    // successful
+                    console.log("SW registration succeeded");
+                }).catch(err => {
+                    // failed
+                    console.log("SW registration failed");
+                });
+        };
+    
+
+        
+    </script>
+</body>
+</html>

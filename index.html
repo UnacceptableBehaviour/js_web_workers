@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Workers</title>
+    <meta name="viewport" content="width=device-width">
+    <!--<link rel="stylesheet" href="#">-->
+</head>
+<body>
+    <header>
+        <h1>Web Workers</h1>
+    </header>
+    <main>
+        <pre id="output"></pre>        
+    </main>    
+    <script>
+        let output = document.getElementById('output');  /* get handle to OP */
+        let worker;
+        
+        document.addEventListener('DOMContentLoaded', init); // fir init on this event
+        
+        output.innerHTML = "Doc loaded"
+        
+        function init(){
+            worker = new Worker('./web-worker.js');   // create worker using this script
+            // create interface to worker
+            // add event listeners for events coming FROM the WW
+            // listen to message
+            worker.addEventListener('message', workerMessaged);
+            // liten to error
+            worker.addEventListener('error', workerError);
+            
+            // use postMessage to send data to WW
+            worker.postMessage('Operations HOT');
+            
+            document.body.addEventListener('click', ()=>{
+                //send another message to the worker
+                worker.postMessage('Ping');
+                //worker.postMessage({'do':'fetch'});
+            })
+        }
+        
+        function workerMessaged(ev){
+            let data = ev.data;
+            console.log('MAIN thread', data);
+            output.innerHTML += JSON.stringify(data, null, 2) + '\n';
+            //output.textContent += JSON.stringify(data, null, 2) + '\n';
+        }
+        
+        function workerError(err){
+            console.log(err.message, err.filename);
+        }
+        
+    </script>
+</body>
+</html>

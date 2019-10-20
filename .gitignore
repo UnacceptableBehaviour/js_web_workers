@@ -1,6 +1,7 @@
 # for osx
 .DS_Store
 *_bak.*
+*.bak
 
 # ignore directory and contents
 /scratch

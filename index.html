@@ -11,33 +11,54 @@
         <h1>Web Workers</h1>
     </header>
     <main>
-        <pre id="output"></pre>        
+        <button id='b_fetch'>Fetch</button>
+        <button id='b_f2'>F2</button>
+        <pre id="output"></pre>
     </main>    
     <script>
         let output = document.getElementById('output');  /* get handle to OP */
+        let button_fetch = document.getElementById('b_fetch');
+        let button_f2 = document.getElementById('b_f2');
         let worker;
         
-        document.addEventListener('DOMContentLoaded', init); // fir init on this event
+        document.addEventListener('DOMContentLoaded', init); // fire init on this event
         
         output.innerHTML = "Doc loaded"
         
         function init(){
+            console.log("DOMContentLoaded: init fired");
+            
             worker = new Worker('./web-worker.js');   // create worker using this script
+            
+            console.log("new Worker:", worker);
+                        
             // create interface to worker
             // add event listeners for events coming FROM the WW
             // listen to message
             worker.addEventListener('message', workerMessaged);
-            // liten to error
+            
+            // listen to error
             worker.addEventListener('error', workerError);
             
             // use postMessage to send data to WW
             worker.postMessage('Operations HOT');
             
-            document.body.addEventListener('click', ()=>{
+            output.addEventListener('click', ()=>{
                 //send another message to the worker
                 worker.postMessage('Ping');
                 //worker.postMessage({'do':'fetch'});
-            })
+            });
+
+            button_fetch.addEventListener('click', ()=>{
+                //send another message to the worker
+                worker.postMessage({'cmd':'fetch'});
+            });
+            
+            button_f2.addEventListener('click', ()=>{
+                //send another message to the worker
+                worker.postMessage({'cmd':'f2'});
+            });
+            
         }
         
         function workerMessaged(ev){

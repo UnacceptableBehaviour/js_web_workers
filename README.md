@@ -13,3 +13,10 @@ To Create: worker = new Worker('web-worker.js')
 
 Output (from WW) listening to events
 Input (passing to WW) postMessage(‘my mesasage ‘)
+
+
+This doesn’t work in Chrome because of security permissions.
+Fine in Firefox!
+
+### Debugging service workers:
+https://www.youtube.com/watch?v=tuRPSaSiK_c

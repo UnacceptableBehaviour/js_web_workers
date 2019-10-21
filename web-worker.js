@@ -3,8 +3,9 @@ console.log(`WEB worker up: ${new Date()}\n`);
 // self refers to this script / worker
 // /
 self.addEventListener('message', (ev)=>{
-    console.log('\n\nWeb worker started with data: ', ev.data);
-    console.log('Inside WW event handler.', ev);
+    console.log('\n\nWW event handler.', ev);
+    console.log('WW message: ', ev.data);
+    
     
     let data = ev.data;
     
@@ -15,23 +16,23 @@ self.addEventListener('message', (ev)=>{
                 self.postMessage('Ping reply...');
                 break;
     
-            //case 'fetch':
-            //    let url = 'http://jsonplaceholder.typicode.com/posts';
-            //    console.log('about to do the fetch for the data');
-            //    
-            //    fetch(url)
-            //    .then(response=>response.json() )
-            //    .then( data =>{
-            //        self.postMessage( data );
-            //    })
-            //    .catch(err=>console.log(err));
-            //    
-            //    break;
+            case 'fetch':
+                let url = 'http://jsonplaceholder.typicode.com/posts';
+                console.log('about to do the fetch for the data');
+                
+                fetch(url)
+                .then(response=>response.json() )
+                .then( data =>{
+                    self.postMessage( data );
+                })
+                .catch(err=>console.log(err));
+                
+                break;
             default:
                 console.log(`Unexpected message: [${data['cmd']}]`);
                 console.log(`type: [${typeof(data['cmd'])}]`);
-                // self.postMessage('Closing web worker');
-                // self.close();
+                self.postMessage('Closing web worker');
+                self.close();
         }        
     } else {
         switch(data){
@@ -39,10 +40,12 @@ self.addEventListener('message', (ev)=>{
                 // this message is picked up by workerMessaged - using 
                 // worker.addEventListener('message', workerMessaged);  <  <  <  <
                 // in main javascript                                              |
-                self.postMessage('Web Worker Started'); // post message to self - triggers
+                self.postMessage('<br>Web Worker Started'); // post message to self - triggers
+                console.log(`Web Worker Started: [${data['cmd']}]`);
                 break;
             case 'Ping':
-                self.postMessage('Ping reply...');
+                console.log(`WW: Ping reply...${new Date()}`);
+                self.postMessage(`Ping reply...${new Date()}`);
                 break;
             default:
                 console.log(`Unexpected message: [${data}]`);
@@ -51,7 +54,5 @@ self.addEventListener('message', (ev)=>{
                 // self.close();
         }
     }
-    
-
     
 })

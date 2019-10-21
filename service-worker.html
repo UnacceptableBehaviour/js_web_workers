@@ -17,18 +17,33 @@
     </main>    
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
-                .then(registration => {
-                    // successful
-                    console.log("SW registration succeeded");
-                }).catch(err => {
-                    // failed
-                    console.log("SW registration failed");
-                });
-        };
-    
-
+          // Register a service worker hosted at the root of the
+          // site using the default scope.
+            navigator.serviceWorker.register('./service-worker.js')
+            .then(registration => {
+                // successful
+                console.log("SW registration succeeded:", registration);
+            }).catch(err => {   // function(err) { ... }
+                // failed
+                console.log("SW registration failed", err);
+            });
+        } else {
+            console.log('Service workers are not supported.');
+        }; 
         
     </script>
 </body>
 </html>
+
+
+<!--if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/resources/ServiceWorker.js').then(function(registration) {
+        // Registration was successful
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+        // registration failed :(
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+}-->

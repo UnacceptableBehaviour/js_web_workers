@@ -12,13 +12,15 @@
     </header>
     <main>
         <button id='b_fetch'>Fetch</button>
-        <button id='b_f2'>F2</button>
+        <button id='ping'>Ping</button>
+        <button id='close'>X</button>
         <pre id="output"></pre>
     </main>    
     <script>
         let output = document.getElementById('output');  /* get handle to OP */
         let button_fetch = document.getElementById('b_fetch');
-        let button_f2 = document.getElementById('b_f2');
+        let button_ping = document.getElementById('ping');
+        let button_close = document.getElementById('close');
         let worker;
         
         document.addEventListener('DOMContentLoaded', init); // fire init on this event
@@ -41,24 +43,27 @@
             worker.addEventListener('error', workerError);
             
             // use postMessage to send data to WW
-            worker.postMessage('Operations HOT');
+            worker.postMessage('Operations HOT');       // string
             
             output.addEventListener('click', ()=>{
                 //send another message to the worker
-                worker.postMessage('Ping');
-                //worker.postMessage({'do':'fetch'});
+                worker.postMessage('Ping');             // string
             });
 
             button_fetch.addEventListener('click', ()=>{
                 //send another message to the worker
-                worker.postMessage({'cmd':'fetch'});
+                worker.postMessage({'cmd':'fetch'});    // object
             });
             
-            button_f2.addEventListener('click', ()=>{
+            button_ping.addEventListener('click', ()=>{
                 //send another message to the worker
                 worker.postMessage({'cmd':'f2'});
             });
-            
+
+            button_close.addEventListener('click', ()=>{
+                //send another message to the worker
+                worker.postMessage({'cmd':'close'});
+            });            
         }
         
         function workerMessaged(ev){

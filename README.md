@@ -64,3 +64,22 @@ TODO:
 https://developers.google.com/web/fundamentals/primers/service-workers/registration
 https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle
 https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker#serving_files_from_the_cache
+https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers
+https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp
+	recommends
+	https://developers.google.com/web/tools/workbox/
+
+With Flask
+https://www.reddit.com/r/PWA/comments/bmsed8/this_is_how_i_install_my_service_worker_using/
+
+EG Flask PWA
+```
+$ cd repos
+$ git clone https://github.com/uwi-info3180/flask-pwa
+$ cd flask-pwa
+$ pip install -r requirements.txt
+$ python ./flask-pwa.py
+```
+
+One more EG
+https://blog.formpl.us/a-simple-guide-to-taking-a-web-page-offline-using-service-workers-f4c42e7b4ada
